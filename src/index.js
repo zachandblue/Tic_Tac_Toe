@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 
 
+
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -23,21 +24,23 @@ class Board extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
+      <div className="wrapper">
+        <div className="game-board">
+          <div className="board-row top-row">
+            {this.renderSquare(0)}
+            {this.renderSquare(1)}
+            {this.renderSquare(2)}
+          </div>
+          <div className="board-row">
+            {this.renderSquare(3)}
+            {this.renderSquare(4)}
+            {this.renderSquare(5)}
+          </div>
+          <div className="board-row bottom-row">
+            {this.renderSquare(6)}
+            {this.renderSquare(7)}
+            {this.renderSquare(8)}
+          </div>
         </div>
       </div>
     );
@@ -60,6 +63,7 @@ class Game extends React.Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length -1];
     const squares = current.squares.slice();
+    const X = <img src='https://pbs.twimg.com/profile_images/587655889307467776/l2mCLs0q_400x400.jpg' height="75px"/>;
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -90,9 +94,11 @@ class Game extends React.Component {
         'Go to move #' + move :
         'Go to game start';
       return (
-        <li key={move}>
-          <button className="timeTravel" onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
+        <div className="game-controls">
+          <li key={move}>
+            <button className="timeTravel" onClick={() => this.jumpTo(move)}>{desc}</button>
+          </li>
+        </div>
       );
     });
 
